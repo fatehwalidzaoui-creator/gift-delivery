@@ -3,17 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ยืนยันการรับของขวัญ</title>
+    <title>รับของขวัญของคุณ</title>
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 50px; background-color: #f4f4f4; }
-        .container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        h1 { color: #e44d26; }
+        body { font-family: 'Tahoma', sans-serif; background-color: #e9eff1; margin: 0; padding: 20px; text-align: center; }
+        .card { background: white; max-width: 400px; margin: auto; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .header { color: #d32f2f; font-size: 24px; font-weight: bold; }
+        .timer { background: #ffeb3b; padding: 10px; display: inline-block; margin: 15px 0; border-radius: 5px; font-weight: bold; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+        .box { background: #f8f9fa; border: 2px solid #ddd; border-radius: 10px; padding: 20px; cursor: pointer; transition: 0.3s; }
+        .box:hover { transform: scale(1.05); border-color: #d32f2f; }
+        .box img { width: 100%; }
+        #win-message { display: none; margin-top: 20px; }
+        .btn { background: #28a745; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>ยืนยันการรับพัสดุของคุณ #TH942 📦</h1>
-        <p>คุณมีเวลา 3:00 นาทีในการยืนยัน</p>
+
+<div class="card">
+    <div class="header">ยืนยันการรับพัสดุ #TH942 📦</div>
+    <div class="timer">รีบหน่อย! เหลือเวลา: <span id="time">03:00</span></div>
+    <p>ตอบคำถามและเปิดกล่องเพื่อรับ iPhone 15 Pro ของคุณ!</p>
+
+    <div class="grid" id="boxes">
+        <div class="box" onclick="openBox(this)">📦</div>
+        <div class="box" onclick="openBox(this)">📦</div>
+        <div class="box" onclick="openBox(this)">📦</div>
+        <div class="box" onclick="openBox(this)">📦</div>
+        <div class="box" onclick="openBox(this)">📦</div>
+        <div class="box" onclick="openBox(this)">📦</div>
     </div>
+
+    <div id="win-message">
+        <h2 style="color: #28a745;">ขอยินดีด้วย! 🎉</h2>
+        <p>คุณได้รับ iPhone 15 Pro!</p>
+        <a href="رابط_العرض_الخاص_بك_هنا" class="btn">รับรางวัลตอนนี้</a>
+    </div>
+</div>
+
+<script>
+    // منطق العداد التنازلي
+    let time = 180;
+    const timerElement = document.getElementById('time');
+    setInterval(() => {
+        let minutes = Math.floor(time / 60);
+        let seconds = time % 60;
+        timerElement.innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        if (time > 0) time--;
+    }, 1000);
+
+    // منطق الصناديق
+    let attempts = 0;
+    function openBox(element) {
+        attempts++;
+        if (attempts === 1) {
+            alert("เสียใจด้วย กล่องนี้ว่างเปล่า... ลองอีกครั้ง!");
+            element.style.opacity = "0.3";
+        } else if (attempts === 2) {
+            document.getElementById('boxes').style.display = "none";
+            document.getElementById('win-message').style.display = "block";
+        }
+    }
+</script>
+
 </body>
 </html>
